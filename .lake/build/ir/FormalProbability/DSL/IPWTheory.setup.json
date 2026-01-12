@@ -1,0 +1,14 @@
+{"plugins": [],
+ "package": "FormalProbability",
+ "options":
+ {"weak.linter.mathlibStandardSet": false,
+  "relaxedAutoImplicit": false,
+  "pp.unicode.fun": true,
+  "maxSynthPendingDepth": 3,
+  "linter.unusedVariables": false,
+  "linter.unusedSimpArgs": false,
+  "linter.unusedSectionVars": false},
+ "name": "FormalProbability.DSL.IPWTheory",
+ "isModule": false,
+ "importArts": {},
+ "dynlibs": []}
