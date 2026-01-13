@@ -38,7 +38,7 @@ Under consistency, unconfoundedness, and positivity:
 - Propensity score and positivity
 - Identification of ATE via IPW
 
-## File Structure (initial)
+## File Structure
 
 ```
 Econometrics/
@@ -46,6 +46,27 @@ Econometrics/
 ├── Assumptions.lean        # SUTVA, unconfoundedness, positivity
 ├── PropensityScore.lean    # e(X) = E[D | X] and basic properties
 ├── IPWIdentification.lean  # ATE identification via IPW
+├── OLS/                    # Ordinary least squares submodule
+│   ├── GaussMarkov.lean     # Classical OLS assumptions and BLUE
+│   ├── Inference.lean       # t-tests, F-tests, confidence intervals
+│   ├── AsymptoticOLS.lean   # Consistency and asymptotic normality
+│   ├── RSquared.lean        # Goodness-of-fit measures
+│   └── README.lean          # OLS submodule overview
+├── Panel/                  # Panel data submodule
+│   ├── FixedEffects.lean    # Fixed effects model and estimators
+│   ├── RandomEffects.lean   # Random effects model and GLS
+│   ├── Hausman.lean         # Hausman specification test
+│   └── README.lean          # Panel submodule overview
+├── IV/                     # Instrumental variables submodule
+│   ├── TwoSLS.lean          # Two-stage least squares
+│   ├── Identification.lean  # Order/rank identification conditions
+│   ├── WeakInstruments.lean # Weak instrument diagnostics
+│   └── README.lean          # IV submodule overview
+├── Diagnostics/            # Model diagnostics and specification checks
+│   ├── OmittedVariableBias.lean # OVB setup and bias formulas
+│   ├── Heteroskedasticity.lean  # Heteroskedasticity tests and robust SEs
+│   ├── FunctionalForm.lean      # Functional form and transformations
+│   └── README.lean              # Diagnostics submodule overview
 └── README.lean             # This file
 ```
 

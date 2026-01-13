@@ -6,6 +6,17 @@
 This module formalizes the **Central Limit Theorem** and supporting probability theory.
 It provides the measure-theoretic foundations for asymptotic analysis.
 
+## Prior Work and Attribution
+
+This CLT development comes after and is independent of earlier formalizations.
+We give full credit to those efforts and make the sources explicit.
+
+- Remy Degenne's Lean formalization (https://github.com/RemyDegenne/CLT) significantly predates
+  this work.
+- The Isabelle/HOL formalization in 2014 (Jeremy Avigad, Johannes Hoelzl, Luke Serafin,
+  "A formally verified proof of the Central Limit Theorem", arXiv:1405.7012v4) was explicitly
+  provided to the AI assistants used to draft parts of this development.
+
 ## Main Results
 
 | Theorem | File | Statement |
@@ -68,6 +79,9 @@ This module uses no axioms beyond Mathlib foundations.
 
 ## References
 
+- Avigad, J., Hoelzl, J., Serafin, L. (2014). A formally verified proof of the Central Limit Theorem.
+  arXiv:1405.7012v4.
 - Billingsley, P. (1995). Probability and Measure, 3rd ed.
 - Dudley, R.M. (2002). Real Analysis and Probability
+- Degenne, R. Lean CLT formalization (GitHub repository: https://github.com/RemyDegenne/CLT).
 -/
