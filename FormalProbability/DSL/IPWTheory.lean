@@ -382,7 +382,6 @@ lemma effectiveSampleSize_pos {α : Type*} (samples : List (WeightedSample α))
         exact add_pos (sq_pos_of_pos s.weight_pos) (ih h')
 
 /-!
-/-!
 ## Section 6: Connection to Existing Exp
 
 The key theoretical connection: when propensities exactly match the true PMF,
