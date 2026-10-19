@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/Panel/FixedEffects.lean
+# FormalProbability/WIP/Econometrics/Panel/FixedEffects.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 13-14
 

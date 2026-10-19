@@ -401,7 +401,19 @@ theorem rsquared_is_squared_correlation {n k : ℕ}
         (∑ i : Fin n, (Y i - sampleMean Y) * (Y_hat i - sampleMean Y))^2 /
           ((∑ i : Fin n, (Y i - sampleMean Y)^2) *
             (∑ i : Fin n, (Y_hat i - sampleMean Y)^2)) := by
-    simp [sampleCorrelation, Y_hat, h_mean, div_pow, pow_two, Real.sq_sqrt, h_nonneg']
+    have h_sqrt_sq :
+        Real.sqrt ((∑ i : Fin n, (Y i - sampleMean Y)^2) *
+            (∑ i : Fin n, (Y_hat i - sampleMean Y)^2)) ^ 2 =
+          (∑ i : Fin n, (Y i - sampleMean Y)^2) *
+            (∑ i : Fin n, (Y_hat i - sampleMean Y)^2) :=
+      Real.sq_sqrt h_nonneg'
+    have h_corr :
+        sampleCorrelation Y Y_hat =
+          (∑ i : Fin n, (Y i - sampleMean Y) * (Y_hat i - sampleMean Y)) /
+            Real.sqrt ((∑ i : Fin n, (Y i - sampleMean Y)^2) *
+              (∑ i : Fin n, (Y_hat i - sampleMean Y)^2)) := by
+      simp only [sampleCorrelation, h_mean]
+    rw [h_corr, div_pow, h_sqrt_sq]
   have h_corr_sq :
       (sampleCorrelation Y Y_hat)^2 =
         (ESS Y Y_hat)^2 / (TSS Y * ESS Y Y_hat) := by
@@ -461,7 +473,7 @@ theorem adjusted_rsquared_may_decrease {n k : ℕ}
     (Y : Fin n → ℝ)
     (Y_hat_small : Fin n → ℝ)  -- k regressors
     (Y_hat_large : Fin n → ℝ)  -- k+1 regressors
-    (h_rss_decrease : RSS Y Y_hat_large ≤ RSS Y Y_hat_small)
+    (h_rss_decrease : RSS Y Y_hat_large ≤ RSS Y Y_hat_small) :
     -- R² increases
     RSquared Y Y_hat_large ≥ RSquared Y Y_hat_small := by
   have h_tss_nonneg : 0 ≤ TSS Y := by

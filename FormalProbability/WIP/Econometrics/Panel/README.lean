@@ -1,12 +1,15 @@
 /-!
-# Econometrics/Panel: Panel Data
+# WIP/Econometrics/Panel: Panel Data (work in progress)
 
 ## Overview
 
-This submodule covers panel data models and estimators, including fixed effects,
+Work in progress: these modules are not imported by the root module, and many of their
+statements are still placeholders.
+
+This submodule is intended to cover panel data models and estimators, including fixed effects,
 random effects, and the Hausman specification test.
 
-## Main Results
+## Planned Scope
 
 | Result | File | Notes |
 |--------|------|-------|

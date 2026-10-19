@@ -1,5 +1,5 @@
 import FormalProbability.DSL.MomentFunctions
-import FormalProbability.Probability.Core
+import FormalProbability.CLT.Core
 
 /-!
 # FormalProbability/DSL/MEstimationCore.lean
@@ -85,6 +85,7 @@ def MomentUnbiasedMeasure {Omega Data : Type*} [MeasurableSpace Omega]
 -/
 
 structure MEstimationAssumptions {Omega Data : Type*} [MeasurableSpace Omega]
+    [MeasurableSpace Data]
     (mu : Measure Omega) [IsProbabilityMeasure mu]
     (d : ℕ) (X : ℕ → Omega → Data)
     (m : MomentFunction Data d) (beta_star : Fin d → ℝ) : Prop where

@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/Panel/Hausman.lean
+# FormalProbability/WIP/Econometrics/Panel/Hausman.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 14
 
@@ -27,7 +27,7 @@ H = (β̂_FE - β̂_RE)' [Var(β̂_FE) - Var(β̂_RE)]⁻¹ (β̂_FE - β̂_RE)
 -/
 
 import Mathlib
-import FormalProbability.Econometrics.Panel.RandomEffects
+import FormalProbability.WIP.Econometrics.Panel.RandomEffects
 
 set_option linter.mathlibStandardSet false
 

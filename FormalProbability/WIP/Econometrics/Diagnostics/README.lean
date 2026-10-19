@@ -1,12 +1,15 @@
 /-!
-# Econometrics/Diagnostics: Model Diagnostics
+# WIP/Econometrics/Diagnostics: Model Diagnostics (work in progress)
 
 ## Overview
 
-This submodule collects regression diagnostics and specification checks,
+Work in progress: these modules are not imported by the root module, and many of their
+statements are still placeholders.
+
+This submodule is intended to collect regression diagnostics and specification checks,
 including omitted variable bias, heteroskedasticity, and functional form issues.
 
-## Main Results
+## Planned Scope
 
 | Topic | File | Notes |
 |-------|------|-------|

@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/Diagnostics/Heteroskedasticity.lean
+# FormalProbability/WIP/Econometrics/Diagnostics/Heteroskedasticity.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 8
 
@@ -28,7 +28,7 @@ but standard errors are incorrect.
 
 import Mathlib
 import FormalProbability.Econometrics.OLS.GaussMarkov
-import FormalProbability.Econometrics.OLS.AsymptoticOLS
+import FormalProbability.WIP.Econometrics.OLS.AsymptoticOLS
 
 set_option linter.mathlibStandardSet false
 

@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/Diagnostics/FunctionalForm.lean
+# FormalProbability/WIP/Econometrics/Diagnostics/FunctionalForm.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 6
 

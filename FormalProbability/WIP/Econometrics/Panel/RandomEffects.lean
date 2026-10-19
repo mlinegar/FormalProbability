@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/Panel/RandomEffects.lean
+# FormalProbability/WIP/Econometrics/Panel/RandomEffects.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 14
 
@@ -31,7 +31,7 @@ RE requires: Cov(X_it, α_i) = 0 for all t
 -/
 
 import Mathlib
-import FormalProbability.Econometrics.Panel.FixedEffects
+import FormalProbability.WIP.Econometrics.Panel.FixedEffects
 
 set_option linter.mathlibStandardSet false
 

@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/OLS/Inference.lean
+# FormalProbability/WIP/Econometrics/OLS/Inference.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 4
 
@@ -25,7 +25,7 @@ Under regularity conditions: Wald, LM, LR → χ²_q
 
 import Mathlib
 import FormalProbability.Econometrics.OLS.GaussMarkov
-import FormalProbability.Econometrics.OLS.AsymptoticOLS
+import FormalProbability.WIP.Econometrics.OLS.AsymptoticOLS
 
 set_option linter.mathlibStandardSet false
 

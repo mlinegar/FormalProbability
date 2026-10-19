@@ -1,12 +1,15 @@
 /-!
-# Econometrics/IV: Instrumental Variables
+# WIP/Econometrics/IV: Instrumental Variables (work in progress)
 
 ## Overview
 
-This submodule formalizes instrumental variables estimation, including 2SLS,
+Work in progress: these modules are not imported by the root module, and many of their
+statements are still placeholders.
+
+This submodule is intended to formalize instrumental variables estimation, including 2SLS,
 identification conditions, and weak instrument diagnostics.
 
-## Main Results
+## Planned Scope
 
 | Result | File | Notes |
 |--------|------|-------|

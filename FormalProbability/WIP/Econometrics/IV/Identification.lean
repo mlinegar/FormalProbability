@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/IV/Identification.lean
+# FormalProbability/WIP/Econometrics/IV/Identification.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 15
 
@@ -19,7 +19,7 @@ E[Z'X₂] has full column rank k₂
 -/
 
 import Mathlib
-import FormalProbability.Econometrics.IV.TwoSLS
+import FormalProbability.WIP.Econometrics.IV.TwoSLS
 
 set_option linter.mathlibStandardSet false
 

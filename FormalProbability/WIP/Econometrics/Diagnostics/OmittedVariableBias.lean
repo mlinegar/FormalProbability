@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/Diagnostics/OmittedVariableBias.lean
+# FormalProbability/WIP/Econometrics/Diagnostics/OmittedVariableBias.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 3
 

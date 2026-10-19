@@ -9,7 +9,9 @@ import FormalProbability.CLT.Normal
 import FormalProbability.CLT.CLT
 
 /-!
-# FormalProbability/CLT
+# FormalProbability.CLT
 
-Convenience re-exports for the Probability subdirectory.
+Entry point for the probability area: shared probability vocabulary, laws and standard
+distributions, the weak law of large numbers, Helly selection, Lévy continuity, and the
+classical i.i.d. central limit theorem.
 -/

@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/IV/WeakInstruments.lean
+# FormalProbability/WIP/Econometrics/IV/WeakInstruments.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 15
 
@@ -24,7 +24,7 @@ When instruments Z are weakly correlated with endogenous X:
 -/
 
 import Mathlib
-import FormalProbability.Econometrics.IV.Identification
+import FormalProbability.WIP.Econometrics.IV.Identification
 
 set_option linter.mathlibStandardSet false
 

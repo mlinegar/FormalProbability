@@ -1,5 +1,5 @@
 /-
-# FormalProbability/Econometrics/IV/TwoSLS.lean
+# FormalProbability/WIP/Econometrics/IV/TwoSLS.lean
 
 ## Reference: Wooldridge, Introductory Econometrics, Chapter 15
 
@@ -21,7 +21,7 @@ This file formalizes Two-Stage Least Squares (2SLS) estimation:
 
 import Mathlib
 import FormalProbability.Econometrics.OLS.GaussMarkov
-import FormalProbability.Econometrics.OLS.AsymptoticOLS
+import FormalProbability.WIP.Econometrics.OLS.AsymptoticOLS
 
 set_option linter.mathlibStandardSet false
 

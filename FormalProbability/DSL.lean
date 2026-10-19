@@ -1,25 +1,16 @@
--- Core definitions and types
+-- Core definitions and the sampling design
 import FormalProbability.DSL.CoreDefinitions
-
--- Sampling theory and Assumption 1
 import FormalProbability.DSL.SamplingTheory
 
--- Cross-fitting
+-- Moment functions and the DSL estimator
+import FormalProbability.DSL.MomentFunctions
+import FormalProbability.DSL.MEstimationCore
+import FormalProbability.DSL.DSLEstimator
 import FormalProbability.DSL.CrossFitting
 
--- Moment functions for GLMs
-import FormalProbability.DSL.MomentFunctions
-
--- Core DSL estimator
-import FormalProbability.DSL.DSLEstimator
-
--- Asymptotic theory
-import FormalProbability.DSL.AsymptoticTheory
-
--- Bias analysis
+-- Bias, asymptotics, and variance
 import FormalProbability.DSL.BiasAnalysis
-
--- Variance decomposition and power
+import FormalProbability.DSL.AsymptoticTheory
 import FormalProbability.DSL.VarianceDecomposition
 
 -- Specific models
@@ -31,70 +22,28 @@ import FormalProbability.DSL.RegressionDiscontinuity
 import FormalProbability.DSL.CategoryProportion
 import FormalProbability.DSL.FixedEffects
 
--- Main theorems summary
+-- Summary of the main statements
 import FormalProbability.DSL.MainTheorems
 
+-- Inverse probability weighting, clustered variance, and judge calibration
+import FormalProbability.DSL.IPWTheory
+import FormalProbability.DSL.ClusteredVariance
+import FormalProbability.DSL.JudgeCalibration
+
 /-!
-# FormalProbability/DSL.lean
+# FormalProbability.DSL
 
-## Design-based Supervised Learning (DSL)
+Entry point for the formalization of design-based supervised learning (DSL; Egami, Hinck,
+Stewart & Wei, NeurIPS 2023).
 
-This is the root import file for the DSL formalization.
+DSL uses automated annotations (for example, LLM labels) for every document, together with
+expert labels for a subset sampled with known probability π. The design-adjusted outcome
 
-### Paper Reference
-
-Egami, Hinck, Stewart, Wei - "Design-based Supervised Learning"
-
-### Overview
-
-DSL is a framework for using LLM/ML predicted variables in downstream statistical
-analyses without bias from prediction errors. The key insight is that prediction
-errors are **non-random** - they correlate with variables in the analysis. Even
-with 90%+ accuracy, ignoring these errors leads to substantial bias and invalid
-confidence intervals.
-
-### Solution
-
-DSL combines:
-1. **Automated annotations** (N documents) - predictions for all data
-2. **Expert annotations** (n sampled) - ground truth for a subset
-3. **Doubly robust estimation** - corrects for prediction errors
-
-Key assumptions:
-1. Researcher controls sampling process (Assumption 1: Design-Based Sampling)
-2. Oracle access for sampled documents (expert labels are ground truth)
-
-### Module Structure
-
-| Module | Description |
-|--------|-------------|
-| CoreDefinitions | Basic types, documents, oracle access |
-| SamplingTheory | Design-based sampling, Assumption 1 |
-| MomentFunctions | GLM moment functions |
-| DSLEstimator | Core estimator, design-adjusted outcomes |
-| AsymptoticTheory | Consistency, normality, variance |
-| BiasAnalysis | Bias from ignoring prediction errors |
-| VarianceDecomposition | Power analysis, efficiency |
-| LinearRegression | DSL for OLS |
-| LogisticRegression | DSL for logistic models |
-| CategoryProportion | DSL for estimating proportions |
-| FixedEffects | DSL for panel data |
-| MainTheorems | Summary of main results |
-
-### Key Formulas
-
-**Design-Adjusted Outcome (Equation 4)**:
   Ỹ = Ŷ - (R/π)(Ŷ - Y)
 
-**Key Property**:
-  E[Ỹ - Y | X] = 0 (unbiasedness regardless of prediction accuracy)
-
-**DSL Linear Regression (Equation 6)**:
-  β̂_DSL = (X'X)⁻¹X'Ỹ
-
-### Main Theorems
-
-1. **Valid Inference**: DSL provides valid inference regardless of prediction accuracy
-2. **Efficiency**: Better predictions → smaller standard errors
-3. **Naive is Invalid**: Ignoring errors invalidates inference (even with 90%+ accuracy)
+corrects for prediction error by construction, so downstream moments stay unbiased however
+good or bad the predictions are. This area states the estimator and its sampling design,
+proves the design-correction and bias results, and records the asymptotic theory against
+explicit assumption structures. It also covers the Horvitz-Thompson and Hájek estimators,
+document-clustered variance, and calibration of an LLM judge against an oracle.
 -/
