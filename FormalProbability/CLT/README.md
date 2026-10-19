@@ -13,9 +13,9 @@ Every theorem is fully proved.
 - **CLT.** `CLT.lean` proves `central_limit_theorem_iid_finite_variance`, its bounded and
   third-moment variants, and a CDF form.
 
-The Lindeberg-Feller (triangular-array) CLT is not formalized. `lean_clt.pdf` is a copy of
-the Avigad, Hölzl & Serafin paper (arXiv:1405.7012v4), the prior Isabelle formalization; it
-is not documentation for this code.
+The Lindeberg-Feller (triangular-array) CLT is not formalized. For the earlier Isabelle/HOL
+formalization, see Avigad, Hölzl & Serafin, "A formally verified proof of the Central Limit
+Theorem" ([arXiv:1405.7012](https://arxiv.org/abs/1405.7012)).
 
 For per-module results and status, see the [module map](../../README.md#probability-clt-all-built).
 The import graph is in [docs/OVERVIEW.md](../../docs/OVERVIEW.md#clt-and-shared).
