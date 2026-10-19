@@ -11,7 +11,7 @@ Each subdirectory includes a README.lean blueprint with scope, results, and file
 ```
 FormalProbability/
 ├── CLT/              # Central Limit Theorem development
-├── DSL/              # Debiased / double machine learning
+├── DSL/              # Design-based supervised learning (Egami et al.)
 ├── Econometrics/     # Econometrics foundations and submodules
 ├── ML/               # Supervised learning foundations
 ├── Shared/           # Shared configuration and typeclasses

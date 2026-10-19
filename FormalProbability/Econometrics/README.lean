@@ -74,5 +74,9 @@ Econometrics/
 
 - Probability primitives come from Mathlib and `FormalProbability.CLT.Core`.
 - Theorems will be stated with explicit assumptions, not axioms.
+- Build status: only Core, Assumptions, PropensityScore and IPWIdentification are imported
+  by `FormalProbability/Econometrics.lean`. The OLS, Panel, IV and Diagnostics submodules
+  are not imported by any built module, so `lake build` does not check them, and many of
+  their statements are placeholders (see README.md and docs/OVERVIEW.md).
 - All documentation uses ASCII-only notation for portability.
 -/

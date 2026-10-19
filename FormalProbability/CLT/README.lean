@@ -23,7 +23,7 @@ We give full credit to those efforts and make the sources explicit.
 |---------|------|-----------|
 | Helly Selection | HellySelection | Tight sequences have convergent subsequences |
 | Lévy Continuity | LevyContinuity | Characteristic function convergence ⟹ distribution convergence |
-| CLT | CLT | Lindeberg-Feller CLT for triangular arrays |
+| CLT | CLT | i.i.d. CLT under finite variance (`central_limit_theorem_iid_finite_variance`) |
 
 ## File Structure
 
@@ -58,20 +58,18 @@ The characteristic function of μ is:
 
 ### Lévy Continuity Theorem
 
-If φ_n → φ pointwise and φ is continuous at 0, then:
-- φ is a characteristic function
-- μ_n ⟹ μ (weak convergence)
+Formalized form (`tendsto_probabilityMeasure_of_tendsto_charFun`): if φ_{μ_n} → φ_μ
+pointwise for a probability measure μ, then μ_n ⟹ μ (weak convergence). The stronger form,
+where the limit φ is only assumed continuous at 0 and is shown to be a characteristic
+function, is not formalized here.
 
 ### Central Limit Theorem
 
-For triangular array {X_{n,k}} with:
-- Row independence
-- Lindeberg condition
-
-We have:
+For i.i.d. X_i with E[X_0] = 0 and E[X_0^2] = σ² (`CLTAssumptions`):
 ```
-(Σ_k X_{n,k} - E[...]) / σ_n ⟹ N(0,1)
+(1/√n) Σ_{i<n} X_i ⟹ N(0, σ²)
 ```
+The Lindeberg-Feller CLT for triangular arrays is not formalized here.
 
 ## Axioms Used
 

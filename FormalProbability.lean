@@ -20,7 +20,7 @@ import FormalProbability.Econometrics
 import FormalProbability.ML
 
 -- ============================================================================
--- DSL Module: Debiased/Double Machine Learning
+-- DSL Module: Design-based Supervised Learning (Egami, Hinck, Stewart, Wei)
 -- ============================================================================
 import FormalProbability.DSL
 import FormalProbability.DSL.IPWTheory
@@ -30,15 +30,20 @@ import FormalProbability.DSL.JudgeCalibration
 /-!
 # FormalProbability - Modular Formalization of Probability and Econometrics
 
-This file re-exports all modules in dependency order, organized into four main sections:
+This file is the root of the default build target. It imports four main sections:
 - **CLT**: Central Limit Theorem and probability theory
 - **Econometrics**: Potential outcomes + IPW foundations
 - **ML**: Supervised learning primitives
-- **DSL**: Debiased/Double Machine Learning
+- **DSL**: Design-based Supervised Learning (Egami, Hinck, Stewart, Wei)
+
+Not imported here (so not checked by `lake build`): the Econometrics OLS/IV/Panel/Diagnostics
+submodules and `DSL.MEstimationCore`.
 
 ## Proof Status
 
-✅ **656+ theorems/lemmas** - All proved (no sorry)
+No `sorry` and no `axiom` declarations. The modules imported here contain 221
+theorem/lemma declarations (346 in the whole repository). Some statements are placeholders
+or rest on assumption bundles; see README.md and docs/OVERVIEW.md for per-module status.
 
 ## Quick Navigation
 
@@ -47,5 +52,5 @@ This file re-exports all modules in dependency order, organized into four main s
 | **CLT** | `FormalProbability.CLT` | Central Limit Theorem |
 | **Econometrics** | `FormalProbability.Econometrics` | Potential outcomes + IPW foundations |
 | **ML** | `FormalProbability.ML` | Supervised learning basics |
-| **DSL** | `FormalProbability.DSL` | Debiased ML, IPW, clustered SEs |
+| **DSL** | `FormalProbability.DSL` | Design-based supervised learning, IPW, clustered SEs |
 -/
