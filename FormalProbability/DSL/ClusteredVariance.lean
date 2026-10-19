@@ -1,15 +1,13 @@
 import FormalProbability.DSL.IPWTheory
 
 /-!
-# FormalProbability/ClusteredVariance.lean
+# FormalProbability/DSL/ClusteredVariance.lean
 
 ## Clustered Standard Errors for Correlated Samples
 
 This file formalizes cluster-robust variance estimation for IPW estimators.
 In tree-based preference learning, nodes within a document are correlated,
 so documents form natural clusters.
-
-See RLHF_DSL_BANDIT_NOTES.md Section 6 for the conceptual model.
 
 ### Key Results
 

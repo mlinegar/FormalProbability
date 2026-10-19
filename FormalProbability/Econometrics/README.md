@@ -1,23 +1,18 @@
-# Econometrics: potential outcomes, IPW identification, and an OLS/IV/panel scaffold
+# Econometrics: potential outcomes, IPW identification, and OLS
 
-**Built.** `Econometrics.lean` imports four modules, and all four are fully proved.
+- **Potential outcomes and IPW.** `Core` sets up binary treatment, potential outcomes, the
+  observed outcome, and the average treatment effect. `Assumptions` states consistency,
+  unconfoundedness (as conditional mean independence), and positivity. `PropensityScore`
+  constructs e(X) = E[D | X] as a measurable function of the covariates via Doob-Dynkin
+  factorization. `IPWIdentification` proves that, under these assumptions and
+  integrability, inverse probability weighting identifies the average treatment effect
+  (`ipw_identifies_ATE`).
+- **Finite-sample OLS.** `OLS/GaussMarkov` proves that OLS is unbiased under a fixed
+  design with mean-zero errors, derives its variance under homoskedasticity, and proves
+  the Gauss-Markov theorem (`ols_unbiased`, `ols_variance_formula`, `gauss_markov`).
+  `OLS/RSquared` proves the sum-of-squares decomposition and the usual facts about
+  R-squared (`tss_decomposition`, `rsquared_bounds`, `rsquared_is_squared_correlation`).
 
-- `Core`: treatment, potential outcomes, observed outcome, ATE.
-- `Assumptions`: consistency, unconfoundedness as conditional mean independence,
-  positivity.
-- `PropensityScore`: e(X) = E[D | X], with Doob-Dynkin factorization.
-- `IPWIdentification`: `ipw_identifies_ATE`.
-
-**Not built.** The subdirectories `OLS/`, `IV/`, `Panel/`, and `Diagnostics/` are not
-imported by `Econometrics.lean` or by the root module, so `lake build` does not check them.
-
-- They are an early scaffold. Of their 125 theorems, 74 are placeholders: the conclusion is
-  `True`, or the proof returns an identical hypothesis.
-- Another 9, in `OLS/AsymptoticOLS`, are conditional on `OLSAsymptoticAxioms`.
-- `OLS/GaussMarkov` contains real proofs (`ols_unbiased`, `ols_variance_formula`,
-  `gauss_markov`), and so does part of `OLS/RSquared` (`tss_decomposition`).
-
-For per-module results and status, see the
-[module map](../../README.md#causal-inference-and-econometrics-econometrics). The import
-graph and the list of placeholder theorems are in
-[docs/OVERVIEW.md](../../docs/OVERVIEW.md).
+Drafts for OLS inference and asymptotics, instrumental variables, panel data, and
+regression diagnostics live in [`../WIP/Econometrics`](../WIP/Econometrics) and are not
+part of the default build.

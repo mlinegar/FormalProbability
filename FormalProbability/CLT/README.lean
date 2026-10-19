@@ -1,85 +1,53 @@
 /-!
-# CLT Module: Central Limit Theorem
+# CLT: probability foundations and the central limit theorem
 
 ## Overview
 
-This module formalizes the **Central Limit Theorem** and supporting probability theory.
-It provides the measure-theoretic foundations for asymptotic analysis.
+This area builds, on top of Mathlib, the probability needed for a proof of the classical
+i.i.d. central limit theorem by characteristic functions. `Core` also provides the shared
+probability vocabulary (expectation, i.i.d. sequences, sample means, modes of convergence)
+used by the econometrics, DSL, and ML areas.
 
-## Prior Work and Attribution
+## Main results
 
-This CLT development comes after and is independent of earlier formalizations.
-We give full credit to those efforts and make the sources explicit.
+| Result | File | Declaration |
+|--------|------|-------------|
+| Helly selection | HellySelection | `exists_subseq_tendsto_cdf_rat` |
+| Lévy continuity (limit given as a probability measure) | LevyContinuity | `tendsto_probabilityMeasure_of_tendsto_charFun` |
+| Weak law of large numbers | WeakLaw | `weak_law_of_large_numbers` |
+| i.i.d. CLT with finite variance | CLT | `central_limit_theorem_iid_finite_variance` |
 
-- Remy Degenne's Lean formalization (https://github.com/RemyDegenne/CLT) significantly predates
-  this work.
-- The Isabelle/HOL formalization in 2014 (Jeremy Avigad, Johannes Hoelzl, Luke Serafin,
-  "A formally verified proof of the Central Limit Theorem", arXiv:1405.7012v4) was explicitly
-  provided to the AI assistants used to draft parts of this development.
-
-## Main Results
-
-| Theorem | File | Statement |
-|---------|------|-----------|
-| Helly Selection | HellySelection | Tight sequences have convergent subsequences |
-| Lévy Continuity | LevyContinuity | Characteristic function convergence ⟹ distribution convergence |
-| CLT | CLT | i.i.d. CLT under finite variance (`central_limit_theorem_iid_finite_variance`) |
-
-## File Structure
+## File structure
 
 ```
 CLT/
-├── Core.lean           # Basic probability definitions
-├── ProbabilityLaws.lean # Laws, transfer theorem, total probability
-├── Distributions.lean  # Binomial/Geometric/Poisson/Uniform/Exponential/Gaussian
-├── GeneratingFunctions.lean # PGF and sums of independent RVs
-├── WeakLaw.lean        # Weak law of large numbers
-├── Normal.lean         # Normal distribution properties
-├── HellySelection.lean # Helly's selection theorem (tightness)
-├── LevyContinuity.lean # Lévy's continuity theorem
-└── CLT.lean            # Central Limit Theorem
+├── Core.lean                # expectation, i.i.d., sample means, convergence notions
+├── ProbabilityLaws.lean     # laws, transfer theorem, total probability
+├── Distributions.lean       # binomial, geometric, Poisson, uniform, exponential, Gaussian
+├── GeneratingFunctions.lean # probability generating functions and independent sums
+├── WeakLaw.lean             # weak law of large numbers
+├── Normal.lean              # standard normal and its characteristic function
+├── HellySelection.lean      # Helly's selection theorem
+├── LevyContinuity.lean      # Lévy's continuity theorem
+└── CLT.lean                 # central limit theorem
 ```
 
-## Key Concepts
+## Key concepts
 
-### Tightness
+The characteristic function of a probability measure μ is φ_μ(t) = ∫ exp(itx) dμ(x).
+`tendsto_probabilityMeasure_of_tendsto_charFun` shows that if φ_{μ_n} → φ_μ pointwise for a
+probability measure μ, then μ_n converges weakly to μ. The stronger form, in which the
+limit is only assumed continuous at 0, is not formalized here.
 
-A sequence of probability measures {μ_n} is **tight** if:
-```
-∀ε > 0, ∃K compact: μ_n(K) > 1 - ε for all n
-```
-
-### Characteristic Functions
-
-The characteristic function of μ is:
-```
-φ_μ(t) = E[exp(itX)] = ∫ exp(itx) dμ(x)
-```
-
-### Lévy Continuity Theorem
-
-Formalized form (`tendsto_probabilityMeasure_of_tendsto_charFun`): if φ_{μ_n} → φ_μ
-pointwise for a probability measure μ, then μ_n ⟹ μ (weak convergence). The stronger form,
-where the limit φ is only assumed continuous at 0 and is shown to be a characteristic
-function, is not formalized here.
-
-### Central Limit Theorem
-
-For i.i.d. X_i with E[X_0] = 0 and E[X_0^2] = σ² (`CLTAssumptions`):
-```
-(1/√n) Σ_{i<n} X_i ⟹ N(0, σ²)
-```
-The Lindeberg-Feller CLT for triangular arrays is not formalized here.
-
-## Axioms Used
-
-This module uses no axioms beyond Mathlib foundations.
+For i.i.d. X_i with E[X_0] = 0 and E[X_0²] = σ² (`CLTAssumptions`), the CLT states that the
+law of (1/√n) Σ_{i<n} X_i converges weakly to N(0, σ²). The Lindeberg-Feller CLT for
+triangular arrays is not formalized here.
 
 ## References
 
-- Avigad, J., Hoelzl, J., Serafin, L. (2014). A formally verified proof of the Central Limit Theorem.
-  arXiv:1405.7012v4.
+- Avigad, J., Hölzl, J., Serafin, L. A formally verified proof of the Central Limit
+  Theorem. arXiv:1405.7012.
+- Degenne, R. Lean CLT formalization, https://github.com/RemyDegenne/CLT.
 - Billingsley, P. (1995). Probability and Measure, 3rd ed.
-- Dudley, R.M. (2002). Real Analysis and Probability
-- Degenne, R. Lean CLT formalization (GitHub repository: https://github.com/RemyDegenne/CLT).
+- Dudley, R. M. (2002). Real Analysis and Probability.
 -/

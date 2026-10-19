@@ -1,29 +1,24 @@
 /-!
-# FormalProbability: Module Index
+# FormalProbability: module index
 
-## Overview
-
-This directory contains the Lean modules for probability, econometrics, DSL, and ML.
-Each subdirectory includes a README.lean blueprint with scope, results, and file maps.
-
-## Module Layout
+Lean modules for probability, econometrics, design-based supervised learning, and basic
+machine learning. Each area has an entry-point module that imports all of its built files,
+and each directory has a `README.lean` (and usually a `README.md`) describing its scope.
 
 ```
 FormalProbability/
-├── CLT/              # Central Limit Theorem development
-├── DSL/              # Design-based supervised learning (Egami et al.)
-├── Econometrics/     # Econometrics foundations and submodules
-├── ML/               # Supervised learning foundations
-├── Shared/           # Shared configuration and typeclasses
-├── CLT.lean          # CLT module entry point
-├── DSL.lean          # DSL module entry point
-├── Econometrics.lean # Econometrics module entry point
-├── ML.lean           # ML module entry point
-└── README.lean       # This file
+├── CLT/              # probability foundations and the central limit theorem
+├── Econometrics/     # potential outcomes, IPW identification, finite-sample OLS
+├── DSL/              # design-based supervised learning; IPW, clustered variance, judges
+├── ML/               # risk, ERM, decision trees
+├── Shared/           # bounded metric space typeclasses
+├── WIP/              # work in progress, not imported by the root module
+├── CLT.lean          # area entry points
+├── Econometrics.lean
+├── DSL.lean
+├── ML.lean
+└── README.lean       # this file
 ```
 
-## Notes
-
-- Shared Lean options live in `Shared/Config.lean`.
-- Subdirectories document their own scope and results.
+Project-wide Lean options are set in `lakefile.toml`.
 -/

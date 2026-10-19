@@ -1,82 +1,43 @@
 /-!
-# Econometrics Module: Foundations for IPW
+# Econometrics: potential outcomes, IPW identification, and OLS
 
-## Overview
+## Core model
 
-This module builds the basic econometrics objects needed before IPW is meaningful.
-It is intentionally small and mirrors the level of formality in `CLT/`.
-
-## Core Model (Potential Outcomes)
-
-We work with:
-- Treatment indicator D in {0,1}
+- Treatment indicator D in {0, 1}
 - Potential outcomes Y0, Y1 : Omega -> R
-- Observed outcome Y defined by consistency:
-  Y = D * Y1 + (1 - D) * Y0
+- Observed outcome by consistency: Y = D * Y1 + (1 - D) * Y0
+- Target: the average treatment effect ATE = E[Y1 - Y0]
 
-The target estimand is the average treatment effect:
-  ATE = E[Y1 - Y0]
+## Propensity score and identification
 
-## Propensity Score
+The propensity score e(X) = E[D | X] is constructed both as a random variable and, by
+Doob-Dynkin factorization, as a measurable function of the covariates. Under consistency,
+unconfoundedness, positivity, and integrability, `ipw_identifies_ATE` proves
 
-The propensity score is the conditional mean of D given covariates X:
-  e(X) = E[D | X]
+  ATE = E[ D * Y / e(X) - (1 - D) * Y / (1 - e(X)) ].
 
-We track both:
-- a random variable e(omega) = E[D | X](omega)
-- a function e(x) with e(X) = E[D | X] a.s. (Doob-Dynkin packaged as a structure)
+## Finite-sample OLS
 
-## Identification (IPW)
+`OLS/GaussMarkov` proves unbiasedness, the variance formula, and the Gauss-Markov theorem
+for a fixed design; `OLS/RSquared` proves the sum-of-squares decomposition and properties
+of R-squared.
 
-Under consistency, unconfoundedness, and positivity:
-  ATE = E[ D * Y / e(X) - (1 - D) * Y / (1 - e(X)) ]
-
-## Initial Scope
-
-- Potential outcomes model (Y0, Y1, observed Y)
-- Binary treatment and covariates
-- Propensity score and positivity
-- Identification of ATE via IPW
-
-## File Structure
+## File structure
 
 ```
 Econometrics/
-├── Core.lean               # Core objects: treatment, potential outcomes, observed outcome
-├── Assumptions.lean        # SUTVA, unconfoundedness, positivity
-├── PropensityScore.lean    # e(X) = E[D | X] and basic properties
-├── IPWIdentification.lean  # ATE identification via IPW
-├── OLS/                    # Ordinary least squares submodule
-│   ├── GaussMarkov.lean     # Classical OLS assumptions and BLUE
-│   ├── Inference.lean       # t-tests, F-tests, confidence intervals
-│   ├── AsymptoticOLS.lean   # Consistency and asymptotic normality
-│   ├── RSquared.lean        # Goodness-of-fit measures
-│   └── README.lean          # OLS submodule overview
-├── Panel/                  # Panel data submodule
-│   ├── FixedEffects.lean    # Fixed effects model and estimators
-│   ├── RandomEffects.lean   # Random effects model and GLS
-│   ├── Hausman.lean         # Hausman specification test
-│   └── README.lean          # Panel submodule overview
-├── IV/                     # Instrumental variables submodule
-│   ├── TwoSLS.lean          # Two-stage least squares
-│   ├── Identification.lean  # Order/rank identification conditions
-│   ├── WeakInstruments.lean # Weak instrument diagnostics
-│   └── README.lean          # IV submodule overview
-├── Diagnostics/            # Model diagnostics and specification checks
-│   ├── OmittedVariableBias.lean # OVB setup and bias formulas
-│   ├── Heteroskedasticity.lean  # Heteroskedasticity tests and robust SEs
-│   ├── FunctionalForm.lean      # Functional form and transformations
-│   └── README.lean              # Diagnostics submodule overview
-└── README.lean             # This file
+├── Core.lean               # treatment, potential outcomes, observed outcome, ATE
+├── Assumptions.lean        # consistency, unconfoundedness, positivity
+├── PropensityScore.lean    # e(X) = E[D | X] and Doob-Dynkin factorization
+├── IPWIdentification.lean  # identification of the ATE by IPW
+├── OLS/
+│   ├── GaussMarkov.lean    # unbiasedness, variance, Gauss-Markov
+│   ├── RSquared.lean       # TSS = ESS + RSS, R-squared
+│   └── README.lean
+└── README.lean             # this file
 ```
 
-## Notes
-
-- Probability primitives come from Mathlib and `FormalProbability.CLT.Core`.
-- Theorems will be stated with explicit assumptions, not axioms.
-- Build status: only Core, Assumptions, PropensityScore and IPWIdentification are imported
-  by `FormalProbability/Econometrics.lean`. The OLS, Panel, IV and Diagnostics submodules
-  are not imported by any built module, so `lake build` does not check them, and many of
-  their statements are placeholders (see README.md and docs/OVERVIEW.md).
-- All documentation uses ASCII-only notation for portability.
+Drafts for OLS inference and asymptotics, instrumental variables, panel data, and
+diagnostics are in `FormalProbability/WIP/Econometrics` and are not part of the default
+build.
 -/

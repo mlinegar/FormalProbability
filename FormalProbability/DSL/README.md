@@ -1,30 +1,28 @@
 # DSL: design-based supervised learning
 
-This directory formalizes design-based supervised learning (Egami, Hinck, Stewart & Wei).
-Here "DSL" does not mean debiased/double machine learning. Automated (e.g. LLM)
-annotations are available for all documents, and expert labels for a subset sampled with
-known probability π. The design-adjusted outcome Ỹ = Ŷ − (R/π)(Ŷ − Y) then gives unbiased
-moments regardless of prediction accuracy. The built modules depend only on Mathlib, not
-on `CLT/`.
+This area formalizes design-based supervised learning (Egami, Hinck, Stewart & Wei,
+NeurIPS 2023). Here "DSL" does not mean double/debiased machine learning. Automated (for
+example, LLM) annotations are available for every document, and expert labels for a
+subset sampled with known probability π. The design-adjusted outcome
+Ỹ = Ŷ − (R/π)(Ŷ − Y) then yields unbiased moments regardless of how accurate the
+predictions are.
 
-- **Estimator chain.** This chain is imported through `DSL.lean`.
-  - `CoreDefinitions`, `SamplingTheory`, and `MomentFunctions` set up the objects.
-  - `DSLEstimator` proves `DSL_unbiased` and `DSLMoment_unbiased`.
-  - `CrossFitting` and `BiasAnalysis` cover cross-fitting and the bias of naive estimators.
-  - `AsymptoticTheory` and the model files build on these, and `MainTheorems` collects the
-    headline results.
-- **Asymptotic results are conditional.** The asymptotic results (`DSL_consistent`,
-  `DSL_asymptotic_normal`, `DSL_valid_coverage`, and the theorems built on them) follow
-  from the assumption bundle `MEstimationAxioms`, whose fields state those conclusions. See
-  the README's [caveats](../../README.md#caveats-on-the-asymptotic-results).
-- **IPW, clustering, and judges.** `IPWTheory`, `ClusteredVariance`, and `JudgeCalibration`
-  are imported directly by the root module. They cover:
-  - Horvitz-Thompson and Hájek estimators with logged propensities;
-  - document-clustered standard errors;
-  - judge-versus-oracle calibration for LLM judges.
-- **Not built.** `MEstimationCore` is not imported by anything, and it imports a missing
-  module (`FormalProbability.Probability.Core`).
-
-For per-module results and status, see the
-[module map](../../README.md#design-based-supervised-learning-dsl). The import graph is in
-[docs/OVERVIEW.md](../../docs/OVERVIEW.md#dsl).
+- **Estimator.** `CoreDefinitions`, `SamplingTheory`, and `MomentFunctions` set up
+  documents, oracle labels, the sampling design, and moment functions for common models.
+  `DSLEstimator` proves that the design-adjusted outcome and moment are unbiased
+  (`DSL_unbiased`, `DSLMoment_unbiased`). `CrossFitting` extends the moment to
+  cross-fitted predictors.
+- **Bias and variance.** `BiasAnalysis` and `AsymptoticTheory` show how ignoring
+  prediction error biases naive estimators (`naive_estimator_biased_general`).
+  `VarianceDecomposition` studies how precision depends on the number of expert labels and
+  on prediction quality.
+- **Asymptotics and models.** `AsymptoticTheory`, `MEstimationCore`, the model files
+  (linear and logistic regression, category proportions, fixed effects, and moment
+  functions for multinomial logit, instrumental variables, and regression discontinuity),
+  and `MainTheorems` state the paper's consistency, asymptotic-normality, and coverage
+  results. These are currently stated relative to explicit assumption structures rather
+  than derived from the CLT area.
+- **IPW, clustering, and judges.** `IPWTheory` covers Horvitz-Thompson and Hájek
+  estimators with logged sampling propensities, `ClusteredVariance` covers standard errors
+  when many observations share a document, and `JudgeCalibration` covers calibrating an LLM
+  judge against an oracle on a propensity-weighted calibration set.

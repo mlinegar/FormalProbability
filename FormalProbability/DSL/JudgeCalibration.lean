@@ -1,14 +1,12 @@
 import FormalProbability.DSL.ClusteredVariance
 
 /-!
-# FormalProbability/JudgeCalibration.lean
+# FormalProbability/DSL/JudgeCalibration.lean
 
 ## Surrogate Error Bounds for Judge Models
 
 This file formalizes error bounds when using a judge model (learned surrogate)
 instead of the true oracle for preference evaluation.
-
-See RLHF_DSL_BANDIT_NOTES.md Section 7 for the conceptual model.
 
 ### Key Results
 

@@ -1,31 +1,26 @@
 /-!
-# ML Module: Supervised Learning Foundations
+# ML: supervised-learning vocabulary
 
 ## Overview
 
-This module provides a lightweight, textbook-style formalization of core
-machine learning concepts:
-- Supervised learning primitives (hypotheses, losses, risk)
-- Empirical risk minimization (ERM)
-- Decision trees as a hypothesis class (routing, impurity, pruning, axis-aligned splits)
+Lightweight, textbook-style definitions meant to be shared with the other areas:
+- supervised-learning primitives (hypotheses, losses, population risk)
+- empirical risk minimization (ERM) and the generalization gap
+- decision trees as a hypothesis class (routing, impurity, pruning, axis-aligned splits)
 
-The intent is to supply reusable foundations for DSL and OPT without
-overcommitting to a specific algorithmic stack.
-
-## File Structure
+## File structure
 
 ```
 ML/
-├── Core.lean          # Hypotheses, loss, population risk
-├── ERM.lean           # Empirical risk + ERM definitions
-├── DecisionTree.lean  # Decision tree hypothesis class
-└── README.lean        # This file
+├── Core.lean          # hypotheses, loss, population risk
+├── ERM.lean           # empirical risk and ERM
+├── DecisionTree.lean  # decision tree hypothesis class
+└── README.lean        # this file
 ```
 
-## Design Principles
+## Design principles
 
 - Keep definitions minimal and composable.
 - Prefer explicit assumptions to global axioms.
-- Align with Mathlib probability infrastructure where possible.
-- Use ASCII-only notation for portability.
+- Align with Mathlib's probability infrastructure where possible.
 -/

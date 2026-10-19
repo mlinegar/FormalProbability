@@ -3,7 +3,11 @@
 
 ## Paper Reference: Main Results Summary
 
-This file collects the main theorems of Design-based Supervised Learning (DSL):
+This file states the main results of the Design-based Supervised Learning (DSL) paper.
+The asymptotic statements (consistency, normality, coverage) are proved relative to the
+assumption structures `MEstimationAxioms` and `CoverageAxioms` from `AsymptoticTheory`,
+whose fields are those asymptotic properties; they record the paper's claims precisely
+rather than derive them from the CLT area. The paper's results are:
 
 ### Theorem 1: DSL Provides Valid Inference
 

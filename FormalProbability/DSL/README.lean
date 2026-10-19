@@ -1,98 +1,80 @@
 /-!
-# DSL Module: Design-based Supervised Learning
+# DSL: design-based supervised learning
 
 ## Overview
 
-This module formalizes **design-based supervised learning** (DSL; Egami, Hinck, Stewart,
-Wei): using automated (e.g. LLM) annotations in downstream estimation, corrected by a
-design-based sample of expert labels with known sampling probabilities. It also contains:
+This area formalizes design-based supervised learning (DSL; Egami, Hinck, Stewart & Wei,
+NeurIPS 2023): using automated (for example, LLM) annotations in downstream estimation,
+corrected by a design-based sample of expert labels with known sampling probabilities. It
+also contains:
 
-- Inverse probability weighting (Horvitz-Thompson / Hajek estimators)
-- Cross-fitting and sample splitting
-- Clustered standard errors
-- Judge-versus-oracle calibration
-- M-estimation scaffolding
+- inverse probability weighting (Horvitz-Thompson and Hájek estimators)
+- cross-fitting
+- document-clustered standard errors
+- calibration of an LLM judge against an oracle
+- M-estimation scaffolding linked to the probability definitions in `CLT/Core`
 
-## Main Results
+## Main results
 
-| Theorem | File | Statement |
-|---------|------|-----------|
-| `DSL_unbiased`, `DSLMoment_unbiased` | DSLEstimator | E[design-adjusted - true] = 0 for a linear expectation with E[R] = pi |
-| `naive_estimator_biased_general` | AsymptoticTheory | Naive plug-in moment is biased when prediction error shifts the expected moment |
-| `hajek_bounded_by_value_bound` | IPWTheory | Hajek estimate is bounded by the bound on the values |
-| `variance_inflation_icc` | ClusteredVariance | Design effect is at least 1 |
-| `judge_error_decomposition` | JudgeCalibration | Weighted MSE = bias^2 + variance |
-| `DSLMomentCF_eq_of_const` | CrossFitting | Cross-fitting with one shared predictor reduces to the DSL moment |
+| Declaration | File | Statement |
+|-------------|------|-----------|
+| `DSL_unbiased`, `DSLMoment_unbiased` | DSLEstimator | The design-adjusted outcome and moment are unbiased when E[R] = π |
+| `naive_estimator_biased_general` | AsymptoticTheory | The naive plug-in moment is biased when prediction error shifts its expectation |
+| `variance_decreases_with_n` | VarianceDecomposition | More expert labels reduce the approximate variance |
+| `hajek_bounded_by_value_bound` | IPWTheory | The Hájek estimate is bounded by the bound on the values |
+| `variance_inflation_icc` | ClusteredVariance | The design effect is at least 1 |
+| `judge_error_decomposition` | JudgeCalibration | Weighted MSE = bias² + variance |
 
-Status notes: `DSL_consistent`, `DSL_asymptotic_normal`, `DSL_valid_coverage` and the
-theorems built on them are applications of the `MEstimationAxioms` / `CoverageAxioms`
-bundles (see Assumptions below). `hajek_unbiased_axiom` and `hajek_variance_bound` have
-conclusion `True` (placeholders). `MEstimationCore.lean` is not imported anywhere and imports
-a missing module.
+The asymptotic results (consistency, asymptotic normality, coverage) are stated relative to
+the assumption structures `MEstimationAxioms` and `CoverageAxioms`, whose fields are those
+asymptotic properties. They record the paper's claims in a precise form; deriving them from
+the CLT area is future work.
 
-## File Structure
+## File structure
 
 ```
 DSL/
-├── CoreDefinitions.lean       # Basic types for DSL
-├── SamplingTheory.lean        # Sampling and probability foundations
-├── CrossFitting.lean          # Sample splitting for bias reduction
-├── MomentFunctions.lean       # Moment conditions for estimation
-├── DSLEstimator.lean          # DSL estimator (design-adjusted outcome)
-├── AsymptoticTheory.lean      # Asymptotic normality results
-├── BiasAnalysis.lean          # Bias decomposition
-├── VarianceDecomposition.lean # Variance estimation
-├── LinearRegression.lean      # DSL linear regression (OLS on adjusted outcome)
-├── LogisticRegression.lean    # Logistic regression
-├── MultinomialLogistic.lean   # Multinomial logit
-├── FixedEffects.lean          # Panel data models
-├── InstrumentalVariables.lean # IV estimation
-├── RegressionDiscontinuity.lean # RDD design
-├── CategoryProportion.lean    # Categorical outcomes
-├── MEstimationCore.lean       # General M-estimation (not built; missing import)
-├── MainTheorems.lean          # Curated exports
-├── IPWTheory.lean             # Inverse probability weighting
-├── ClusteredVariance.lean     # Clustered standard errors
-├── JudgeCalibration.lean      # Judge model calibration
+├── CoreDefinitions.lean         # documents, oracle access, outcome specifications
+├── SamplingTheory.lean          # design-based sampling (Assumption 1)
+├── MomentFunctions.lean         # moment functions for GLMs
+├── MEstimationCore.lean         # population and empirical moments, M-estimation assumptions
+├── DSLEstimator.lean            # design-adjusted outcome and moments
+├── CrossFitting.lean            # cross-fitted predictors
+├── BiasAnalysis.lean            # bias from ignoring prediction error
+├── AsymptoticTheory.lean        # consistency, normality, sandwich variance
+├── VarianceDecomposition.lean   # variance and power
+├── LinearRegression.lean        # DSL linear regression
+├── LogisticRegression.lean      # DSL logistic regression
+├── MultinomialLogistic.lean     # multinomial logit moments
+├── InstrumentalVariables.lean   # IV moments
+├── RegressionDiscontinuity.lean # regression discontinuity moments
+├── CategoryProportion.lean      # category proportions
+├── FixedEffects.lean            # panel data with fixed effects
+├── MainTheorems.lean            # summary of the main statements
+├── IPWTheory.lean               # Horvitz-Thompson and Hájek estimators
+├── ClusteredVariance.lean       # clustered standard errors
+├── JudgeCalibration.lean        # judge-versus-oracle calibration
+└── README.lean                  # this file
 ```
 
-## Key Concepts
+## Key formulas
 
-### Inverse Probability Weighting (IPW)
+Design-adjusted outcome (Equation 4): Ỹ = Ŷ - (R/π)(Ŷ - Y).
 
-IPW reweights samples to correct for selection bias:
-```
-E[Y·w(X)] = E[Y | treated]
-```
-where w(X) = 1/P(treated | X).
+DSL linear regression (Equation 6): β̂_DSL = (X'X)⁻¹X'Ỹ.
 
-### Cross-Fitting
-
-Split data into K folds, fit nuisance parameters on K-1 folds,
-evaluate on held-out fold. Reduces bias from overfitting.
-
-### Clustered Standard Errors
-
-When observations are correlated within clusters:
-```
-Var(θ̂) = Σ_c Var(Σ_{i∈c} ψ_i)
-```
-rather than assuming independence.
+Clustered variance: Var(θ̂) = Σ_c Var(Σ_{i∈c} ψ_i), rather than assuming independence
+across observations.
 
 ## Assumptions
 
-This module bundles assumptions as **structures** (explicit theorem parameters)
-rather than Lean `axiom` declarations. This makes them explicit parameters to theorems,
-which is cleaner for a formalization that aims to be modular.
+Assumptions are bundled as structures that appear as explicit theorem parameters, not as
+Lean `axiom` declarations.
 
-| Structure | Location | Purpose | Justification |
-|-----------|----------|---------|---------------|
-| `OracleAccess` | CoreDefinitions | Expert labels = oracle labels | Design assumption |
-| `MEstimationAxioms` | AsymptoticTheory | M-estimation asymptotics | Newey & McFadden 1994 |
-| `CoverageAxioms` | AsymptoticTheory | CI coverage properties | Standard asymptotic theory |
-
-Note: the fields of `MEstimationAxioms` and `CoverageAxioms` are the asymptotic conclusions
-themselves, quantified over arbitrary sequences, and `RegularityConditions` / `NormalLimit`
-have only `True` fields. The theorems that take these bundles record the intended results;
-they are not yet proofs of them.
+| Structure | Location | Purpose |
+|-----------|----------|---------|
+| `OracleAccess` | CoreDefinitions | Expert labels equal oracle labels |
+| `MEstimationAxioms` | AsymptoticTheory | M-estimation asymptotics |
+| `CoverageAxioms` | AsymptoticTheory | Confidence-interval coverage |
+| `MEstimationAssumptions` | MEstimationCore | i.i.d. sampling, identification, law of large numbers |
 -/

@@ -1,13 +1,14 @@
 /-
-FormalProbability/BoundedMetricSpace.lean
+FormalProbability/Shared/BoundedMetricSpace.lean
 
-Bounded Pseudo Metric Space typeclass for sound summability proofs.
+Bounded (pseudo)metric space typeclasses.
 
-The paper naturally assumes bounded oracle spaces (finite action spaces, bounded
-rewards). This typeclass makes the assumption explicit, enabling:
-1. Elimination of the unsound `PMF.summable_coe_real_mul` axiom
-2. Automatic derivation of boundedness hypotheses
-3. Cleaner theorem statements without repeated `hbound` parameters
+Oracle and outcome spaces in this project are naturally bounded (finite action spaces,
+bounded rewards). These typeclasses make that assumption explicit, so that:
+1. summability of expectations over such spaces follows from the bound itself,
+   with no extra hypotheses or axioms;
+2. boundedness hypotheses can be derived automatically;
+3. theorem statements do not need repeated `hbound` parameters.
 
 ## Usage
 

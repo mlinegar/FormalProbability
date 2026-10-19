@@ -3,7 +3,7 @@
 
 ## Paper Reference: Section 3.2, Proposition 1, Appendix OA.7
 
-This file formalizes the asymptotic theory of the DSL estimator:
+This file states the asymptotic theory of the DSL estimator:
 - Consistency: β̂_DSL → β* as N → ∞
 - Asymptotic normality: √N(β̂_DSL - β*) →d N(0, V)
 - Variance formula (sandwich estimator)
@@ -18,6 +18,12 @@ Under Assumption 1 (design-based sampling) and standard regularity conditions:
 2. **Asymptotic Normality:** √N(β̂_DSL - β*) →d N(0, V)
 
 where V is the sandwich variance matrix.
+
+In this file these properties are stated relative to the assumption structures
+`MEstimationAxioms` and `CoverageAxioms`, whose fields are the asymptotic properties
+themselves; `RegularityConditions` and `NormalLimit` are still placeholders. The results
+here therefore record Proposition 1 precisely rather than derive it from the CLT area.
+`naive_estimator_biased_general` is a direct proof.
 
 ### Variance Formula (Equation OA.7)
 

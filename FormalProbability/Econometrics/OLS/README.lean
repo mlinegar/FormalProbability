@@ -1,39 +1,26 @@
 /-!
-# Econometrics/OLS: Ordinary Least Squares
+# Econometrics/OLS: finite-sample ordinary least squares
 
 ## Overview
 
-This submodule formalizes linear regression via OLS, covering classical
-assumptions, finite-sample properties, inference, and asymptotic results.
+Linear regression under the classical assumptions with a fixed design matrix.
 
-## Main Results
+| Result | File | Declarations |
+|--------|------|--------------|
+| Unbiasedness and variance | GaussMarkov | `ols_unbiased`, `ols_variance_formula` |
+| Gauss-Markov (BLUE) | GaussMarkov | `gauss_markov_matrix`, `gauss_markov` |
+| Sum-of-squares decomposition | RSquared | `tss_decomposition` |
+| R-squared | RSquared | `rsquared_bounds`, `rsquared_is_squared_correlation` |
 
-| Result | File | Notes |
-|--------|------|-------|
-| Gauss-Markov (BLUE) | GaussMarkov | Classical assumptions and unbiasedness |
-| Inference | Inference | t-tests, F-tests, and confidence intervals |
-| Asymptotic OLS | AsymptoticOLS | Consistency and asymptotic normality |
-| Goodness of fit | RSquared | TSS/ESS/RSS and R-squared |
-
-## File Structure
+## File structure
 
 ```
 OLS/
-├── GaussMarkov.lean   # Classical OLS assumptions and BLUE
-├── Inference.lean     # t-tests, F-tests, confidence intervals
-├── AsymptoticOLS.lean # Consistency and asymptotic normality
-├── RSquared.lean      # Goodness-of-fit measures
-└── README.lean        # This file
+├── GaussMarkov.lean   # classical assumptions, unbiasedness, variance, BLUE
+├── RSquared.lean      # TSS/ESS/RSS, R-squared, adjusted and partial R-squared
+└── README.lean        # this file
 ```
 
-## Key Concepts
-
-### Classical Linear Model
-MLR.1-MLR.5 assumptions for unbiasedness and variance formulas.
-
-### Asymptotic Theory
-Weak exogeneity and moment conditions that connect to the CLT module.
-
-### Fit Metrics
-R-squared decompositions built from TSS, ESS, and RSS.
+OLS inference (t and F statistics) and asymptotic OLS are drafts in
+`FormalProbability/WIP/Econometrics/OLS`.
 -/
